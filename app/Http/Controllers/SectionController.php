@@ -13,7 +13,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        return view('sections.sections');
+        $sections = Section::all();
+        return view('sections.sections', compact('sections'));
     }
 
     /**
@@ -29,21 +30,22 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        // $attributes = $request->validated(); // if custom request was made instead of the regular Illuminate\Http\Request
 
-        $b_exists = section::where('section_name', $input['section_name'])->exists();
+        $attributes = $request->validate([
+            'section_name' => 'required|unique:sections|max:255',
+            'description' => 'required'
+        ], [
+            'section_name.required' => 'يرجي ادخال اسم القسم',
+            'section_name.unique' => 'اسم القسم مسجل مسبقا',
+            'description.required' => 'يرجي ادخال البيان',
+        ]);
 
-        if ($b_exists) {
-
-            session()->flash('Error', 'خطأ القسم مسجل مسبقا');
-            return redirect('/sections');
-        } else {
-            Section::create([
-                'section_name' => $request->section_name,
-                'description' => $request->description,
-                'Created_by' => Auth::user()->name
-            ]);
-        }
+        Section::create([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+            'Created_by' => Auth::user()->name
+        ]);
 
         session()->flash('Add', 'تم إضافة القسم بنجاح');
         return redirect('/sections');
@@ -62,22 +64,45 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+
+        $this->validate($request, [
+            'section_name' => 'required|max:255|unique:sections,section_name,' . $id,
+            'description' => 'required',
+        ], [
+            'section_name.required' => 'يرجي ادخال اسم القسم',
+            'section_name.unique' => 'اسم القسم مسجل مسبقا',
+            'description.required' => 'يرجي ادخال البيان',
+        ]);
+
+        $section = Section::find($id);
+        $section->update([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+        ]);
+
+        session()->flash('edit', 'تم تعديل القسم بنجاج');
+        return redirect('/sections');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Section $section)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        $section = Section::findOrFail($id);
+        $section->delete();
+
+        session()->flash('delete', 'تم حذف القسم بنجاج');
+        return redirect('/sections');
     }
 }
