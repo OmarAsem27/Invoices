@@ -26,8 +26,8 @@
     </div>
     <!-- breadcrumb -->
 @endsection
-@section('content')
 
+@section('content')
     @if (session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Add') }}</strong>
@@ -71,20 +71,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td> 1</td>
-                                    <td> 1213124</td>
-                                    <td> 2025-1-5</td>
-                                    <td> 2025-1-5</td>
-                                    <td> CC</td>
-                                    <td> البنك الأهلي</td>
-                                    <td> 1000</td>
-                                    <td> 10%</td>
-                                    <td> 2500 </td>
-                                    <td> 2650</td>
-                                    <td> غير مدفوعة</td>
-                                    <td> لم يتم السداد الي الأن</td>
-                                </tr>
+                                @foreach ($invoices as $index => $invoice)
+                                    <tr>
+                                        <td> {{ $index + 1 }} </td>
+                                        <td> {{ $invoice->invoice_number }}</td>
+                                        <td> {{ $invoice->invoice_date }}</td>
+                                        <td> {{ $invoice->due_date }}</td>
+                                        <td> {{ $invoice->product }}</td>
+                                        <td> <a href="{{ url('invoices-details/' . $invoice->id) }}">
+                                                {{ $invoice->section->section_name }}
+                                            </a> </td>
+                                        <td> {{ $invoice->discount }}</td>
+                                        <td> {{ $invoice->rate_VAT }}</td>
+                                        <td> {{ $invoice->value_VAT }}</td>
+                                        <td> {{ $invoice->total }}</td>
+                                        <td @class([
+                                            'text-success' => $invoice->value_status == 1,
+                                            'text-danger' => $invoice->value_status == 2,
+                                        ])>
+                                            {{ $invoice->status }}
+                                        </td>
+                                        <td> {{ $invoice->note }}</td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

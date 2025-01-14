@@ -17,7 +17,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('invoices.invoices');
+        $invoices = Invoice::all();
+        return view('invoices.invoices', compact('invoices'));
     }
 
     /**
@@ -84,6 +85,7 @@ class InvoiceController extends Controller
         $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
 
         session()->flash('Add', 'تم إضافة الفاتورة بنجاح');
+        Auth::check();
         return redirect('/invoices');
     }
 

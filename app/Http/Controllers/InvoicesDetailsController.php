@@ -42,9 +42,9 @@ class InvoicesDetailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Invoices_details $invoices_details)
+    public function edit($id)
     {
-        //
+        return view('invoices.invoice_details');
     }
 
     /**
