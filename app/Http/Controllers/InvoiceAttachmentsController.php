@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Invoice;
-use App\Models\Product;
-use App\Models\Section;
+use App\Models\Invoice_attachments;
 use Illuminate\Http\Request;
 
-class InvoiceController extends Controller
+class InvoiceAttachmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('invoices.invoices');
+        //
     }
 
     /**
@@ -22,8 +20,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $sections = Section::all();
-        return view('invoices.add_invoice', compact('sections'));
+        //
     }
 
     /**
@@ -37,7 +34,7 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Invoice $invoice)
+    public function show(Invoice_attachments $invoice_attachments)
     {
         //
     }
@@ -45,7 +42,7 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Invoice $invoice)
+    public function edit(Invoice_attachments $invoice_attachments)
     {
         //
     }
@@ -53,7 +50,7 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(Request $request, Invoice_attachments $invoice_attachments)
     {
         //
     }
@@ -61,15 +58,8 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Invoice_attachments $invoice_attachments)
     {
         //
     }
-
-    public function getProducts($id)
-    {
-        $products = Product::where('section_id', $id)->pluck('product_name', 'id');
-        return json_encode($products);
-    }
-
 }

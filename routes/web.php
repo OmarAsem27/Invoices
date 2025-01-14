@@ -20,6 +20,8 @@ Route::resource('invoices', InvoiceController::class);
 
 Route::resource('sections', SectionController::class);
 
+Route::get('section/{id}',[InvoiceController::class,'getProducts']);
+
 Route::resource('products', ProductController::class);
 
 Route::get('/{page}', [AdminController::class, 'index']);
