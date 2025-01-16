@@ -100,17 +100,36 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Invoice $invoice)
+    public function edit($id)
     {
-        //
+        $invoice = Invoice::where('id', $id)->first();
+        $sections = Section::all();
+        return view('invoices.edit_invoice', compact('invoice', 'sections'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(Request $request)
     {
-        //
+        $invoice = Invoice::findOrFail($request->invoice_id);
+        $invoice->update([
+            'invoice_number' => $request->invoice_number,
+            'invoice_date' => $request->invoice_date,
+            'due_date' => $request->due_date,
+            'product' => $request->product,
+            'section_id' => $request->section,
+            'amount_collection' => $request->amount_collection,
+            'amount_commission' => $request->amount_commission,
+            'discount' => $request->discount,
+            'value_VAT' => $request->value_VAT,
+            'rate_VAT' => $request->rate_VAT,
+            'total' => $request->total,
+            'note' => $request->note,
+        ]);
+
+        session()->flash('Edit', 'تم تعديل الفاتورة بنجاح');
+        return back();
     }
 
     /**
