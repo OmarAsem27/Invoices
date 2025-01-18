@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -135,9 +136,16 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+        $invoice = Invoice::where('id', $request->invoice_id)->first();
+        $attachments = Invoice_attachments::where('invoice_id', $request->invoice_id)->get();
+        // delete its attachments
+        if ($attachments) {
+            Storage::disk('invoice_attachments')->deleteDirectory($invoice->invoice_number);
+        }
+        $invoice->forceDelete();
+        return redirect('/invoices')->with('Delete', 'تم حذف الفاتورة بنجاح');
     }
 
     public function getProducts($id)
