@@ -171,11 +171,11 @@
                                                                 <td>{{ $x->invoice_number }}</td>
                                                                 <td>{{ $x->product }}</td>
                                                                 <td>{{ $invoice->section->section_name }} </td>
-                                                                @if ($x->value_status == 1)
+                                                                @if ($x->Value_Status == 1)
                                                                     <td><span
                                                                             class="badge badge-pill badge-success">{{ $x->status }}</span>
                                                                     </td>
-                                                                @elseif($x->value_status == 2)
+                                                                @elseif($x->Value_Status == 2)
                                                                     <td><span
                                                                             class="badge badge-pill badge-danger">{{ $x->status }}</span>
                                                                     </td>
@@ -184,7 +184,7 @@
                                                                             class="badge badge-pill badge-warning">{{ $x->status }}</span>
                                                                     </td>
                                                                 @endif
-                                                                <td>{{ $x->payment_Date }}</td>
+                                                                <td>{{ $x->payment_date }}</td>
                                                                 <td>{{ $x->note }}</td>
                                                                 <td>{{ $x->created_at }}</td>
                                                                 <td>{{ $x->user }}</td>

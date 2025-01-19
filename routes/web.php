@@ -24,6 +24,8 @@ Route::resource('sections', SectionController::class);
 
 Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
 
+Route::post('change-status/{id}', [InvoiceController::class, 'changeStatus'])->name('change-status');
+
 Route::get('section/{id}', [InvoiceController::class, 'getProducts']);
 
 Route::get('edit-invoice/{id}', [InvoiceController::class, 'edit']);
