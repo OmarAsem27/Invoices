@@ -12,13 +12,13 @@ return new class extends Migration {
     {
         Schema::create('invoices_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_Invoice');
+            $table->unsignedBigInteger('id_invoice');
             $table->string('invoice_number', 50);
-            $table->foreign('id_Invoice')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('id_invoice')->references('id')->on('invoices')->onDelete('cascade');
             $table->string('product', 50);
             $table->string('section', 999);
             $table->string('status', 50);
-            $table->integer('Value_Status');
+            $table->integer('value_status');
             $table->date('payment_date')->nullable();
             $table->text('note')->nullable();
             $table->string('user', 300);

@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col">
                                 <label class="control-label">رقم الفاتورة</label>
-                                <input type="text" name="id_Invoice" value="{{ $invoice->id }}">
+                                <input type="hidden" name="id_Invoice" value="{{ $invoice->id }}">
                                 <input type="text" class="form-control" name="invoice_number"
                                     title="يرجي ادخال رقم الفاتورة" value="{{ $invoice->invoice_number }}" required
                                     readonly>

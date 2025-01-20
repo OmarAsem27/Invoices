@@ -171,11 +171,11 @@
                                                                 <td>{{ $x->invoice_number }}</td>
                                                                 <td>{{ $x->product }}</td>
                                                                 <td>{{ $invoice->section->section_name }} </td>
-                                                                @if ($x->Value_Status == 1)
+                                                                @if ($x->value_status == 1)
                                                                     <td><span
                                                                             class="badge badge-pill badge-success">{{ $x->status }}</span>
                                                                     </td>
-                                                                @elseif($x->Value_Status == 2)
+                                                                @elseif($x->value_status == 2)
                                                                     <td><span
                                                                             class="badge badge-pill badge-danger">{{ $x->status }}</span>
                                                                     </td>
@@ -184,7 +184,8 @@
                                                                             class="badge badge-pill badge-warning">{{ $x->status }}</span>
                                                                     </td>
                                                                 @endif
-                                                                <td>{{ $x->payment_date }}</td>
+                                                                <td>{{ $x->payment_date ?: 'Not available' }}
+                                                                </td>
                                                                 <td>{{ $x->note }}</td>
                                                                 <td>{{ $x->created_at }}</td>
                                                                 <td>{{ $x->user }}</td>
@@ -201,26 +202,26 @@
                                             <!--المرفقات-->
                                             <div class="card card-statistics">
                                                 {{-- @can('اضافة مرفق') --}}
-                                                    <div class="card-body">
-                                                        <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
-                                                        <h5 class="card-title">اضافة مرفقات</h5>
-                                                        <form method="post" action="{{ url('/InvoiceAttachments') }}"
-                                                            enctype="multipart/form-data">
-                                                            {{ csrf_field() }}
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input" id="customFile"
-                                                                    name="file_name" required>
-                                                                <input type="hidden" id="customFile" name="invoice_number"
-                                                                    value="{{ $invoice->invoice_number }}">
-                                                                <input type="hidden" id="invoice_id" name="invoice_id"
-                                                                    value="{{ $invoice->id }}">
-                                                                <label class="custom-file-label" for="customFile">حدد
-                                                                    المرفق</label>
-                                                            </div><br><br>
-                                                            <button type="submit" class="btn btn-primary btn-sm "
-                                                                name="uploadedFile">تاكيد</button>
-                                                        </form>
-                                                    </div>
+                                                <div class="card-body">
+                                                    <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
+                                                    <h5 class="card-title">اضافة مرفقات</h5>
+                                                    <form method="post" action="{{ url('/InvoiceAttachments') }}"
+                                                        enctype="multipart/form-data">
+                                                        {{ csrf_field() }}
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile"
+                                                                name="file_name" required>
+                                                            <input type="hidden" id="customFile" name="invoice_number"
+                                                                value="{{ $invoice->invoice_number }}">
+                                                            <input type="hidden" id="invoice_id" name="invoice_id"
+                                                                value="{{ $invoice->id }}">
+                                                            <label class="custom-file-label" for="customFile">حدد
+                                                                المرفق</label>
+                                                        </div><br><br>
+                                                        <button type="submit" class="btn btn-primary btn-sm "
+                                                            name="uploadedFile">تاكيد</button>
+                                                    </form>
+                                                </div>
                                                 {{-- @endcan --}}
                                                 <br>
 

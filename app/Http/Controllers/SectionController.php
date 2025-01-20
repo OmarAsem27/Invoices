@@ -44,7 +44,7 @@ class SectionController extends Controller
         Section::create([
             'section_name' => $request->section_name,
             'description' => $request->description,
-            'Created_by' => Auth::user()->name
+            'created_by' => Auth::user()->name
         ]);
 
         session()->flash('Add', 'تم إضافة القسم بنجاح');
