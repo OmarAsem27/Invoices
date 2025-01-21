@@ -228,4 +228,9 @@ class InvoiceController extends Controller
         return view('invoices.partially-paid-invoices', compact('invoices'));
     }
 
+    public function printInvoice(Request $request, $id)
+    {
+        $invoice = Invoice::where('id', $id)->first();
+        return view('invoices.print-invoice', compact('invoice'));
+    }
 }

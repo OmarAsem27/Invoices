@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('edit-invoice/{id}', [InvoiceController::class, 'edit']);
 
+    Route::get('print-invoice/{id}', [InvoiceController::class, 'printInvoice']);
+
     Route::get('invoices-details/{id}', [InvoicesDetailsController::class, 'edit']);
 
     Route::get('view-file/{invoice_number}/{filename}', [InvoicesDetailsController::class, 'open_file']);

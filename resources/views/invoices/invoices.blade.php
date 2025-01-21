@@ -153,6 +153,11 @@
                                                         data-target="#Transfer_invoice">
                                                         <i class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
                                                         الارشيف</a>
+
+                                                    <a href="print-invoice/{{ $invoice->id }}" class="dropdown-item">
+                                                        <i class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة الفاتورة
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </td>
