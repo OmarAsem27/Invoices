@@ -7,6 +7,7 @@ use App\Models\Invoice_attachments;
 use App\Models\Invoices_details;
 use App\Models\Product;
 use App\Models\Section;
+use App\Notifications\InvoiceCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -85,8 +86,11 @@ class InvoiceController extends Controller
         $imageName = $request->pic->getClientOriginalName();
         $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
 
+        // event to send mail
+        $user = Auth::user();
+        $invoice = Invoice::latest()->first();
+        $user->notify(new InvoiceCreatedNotification($invoice));
         session()->flash('Add', 'تم إضافة الفاتورة بنجاح');
-        Auth::check();
         return redirect('/invoices');
     }
 
