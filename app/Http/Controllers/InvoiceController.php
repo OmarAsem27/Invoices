@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoicesExport;
 use App\Models\Invoice;
 use App\Models\Invoice_attachments;
 use App\Models\Invoices_details;
@@ -11,6 +12,10 @@ use App\Notifications\InvoiceCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Schema;
+
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -237,4 +242,10 @@ class InvoiceController extends Controller
         $invoice = Invoice::where('id', $id)->first();
         return view('invoices.print-invoice', compact('invoice'));
     }
+
+    public function export()
+    {
+        return Excel::download(new InvoicesExport, 'invoices.xlsx');
+    }
+
 }

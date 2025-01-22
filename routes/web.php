@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::get('invoices/export/', [InvoiceController::class, 'export']);
+
     Route::resource('invoices', InvoiceController::class);
 
     Route::resource('sections', SectionController::class);
