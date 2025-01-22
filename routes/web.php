@@ -6,7 +6,9 @@ use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
 
     Route::resource('archived-invoices', ArchivedInvoiceController::class);
+
+    Route::resource('roles', RoleController::class);
+    
+    Route::resource('users', UserController::class);
 
     Route::post('change-status/{id}', [InvoiceController::class, 'changeStatus'])->name('change-status');
 
