@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        
+
         $this->call(PermissionTableSeeder::class);
         $this->call(CreateAdminUserSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Omar Asem',
-            'email' => 'omar@g.ps',
-            'password' => Hash::make('password')
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Omar Asem',
+        //     'email' => 'omar@g.ps',
+        //     'password' => Hash::make('password')
+        // ]);
     }
 }

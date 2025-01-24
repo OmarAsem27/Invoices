@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -25,7 +26,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     // function __construct()
+    // function __construct()
     // {
     //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
     //     $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
@@ -66,8 +67,18 @@ class RoleController extends Controller
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
+
+        \Log::info('Submitted Permissions:', $request->input('permission'));
+
+        // Convert string IDs to integers
+        $permissionIds = array_map('intval', $request->input('permission'));
+        // $permissionIds = collect($request->input('permission'))
+        //     ->map(fn($id) => (int) $id)
+        //     ->toArray();
+
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($permissionIds);
+
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
     }
@@ -100,6 +111,7 @@ class RoleController extends Controller
             ->all();
         return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -116,7 +128,11 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-        $role->syncPermissions($request->input('permission'));
+        Log::debug("IDS ARE: ", $request->permission);
+
+        $permissionIDs = array_map('intval', $request->permission);
+        $role->syncPermissions($permissionIDs);
+
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
     }

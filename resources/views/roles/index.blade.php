@@ -31,7 +31,6 @@
                 type: "success"
             });
         }
-
     </script>
 @endif
 
@@ -43,7 +42,6 @@
                 type: "success"
             });
         }
-
     </script>
 @endif
 
@@ -55,7 +53,6 @@
                 type: "error"
             });
         }
-
     </script>
 @endif
 
@@ -96,7 +93,7 @@
                                             <a class="btn btn-success btn-sm"
                                                 href="{{ route('roles.show', $role->id) }}">عرض</a>
                                         @endcan
-                                        
+
                                         @can('تعديل صلاحية')
                                             <a class="btn btn-primary btn-sm"
                                                 href="{{ route('roles.edit', $role->id) }}">تعديل</a>
@@ -104,10 +101,12 @@
 
                                         @if ($role->name !== 'owner')
                                             @can('حذف صلاحية')
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy',
-                                                $role->id], 'style' => 'display:inline']) !!}
-                                                {!! Form::submit('حذف', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!}
+                                                <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
+                                                    style="display:inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                                                </form>
                                             @endcan
                                         @endif
 
