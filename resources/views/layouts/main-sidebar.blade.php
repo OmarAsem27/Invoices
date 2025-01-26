@@ -93,7 +93,7 @@
                             <li><a class="slide-item" href="{{ url('/' . ($page = 'inovoice-report')) }}">تقارير الفواتير</a></li>
                         @endcan
                         @can('تقرير العملاء')
-                            <li><a class="slide-item" href="{{ url('/' . ($page = 'darggablecards')) }}">تقارير العملاء </a>
+                            <li><a class="slide-item" href="{{ url('/' . ($page = 'customer-report')) }}">تقارير العملاء </a>
                             </li>
                         @endcan
 

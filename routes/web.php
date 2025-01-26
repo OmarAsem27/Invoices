@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchivedInvoiceController;
+use App\Http\Controllers\CustomerReportController;
 use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceReportController;
@@ -63,6 +64,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
 
     Route::get('inovoice-report', [InvoiceReportController::class, 'index']);
+
+    Route::get('customer-report', [CustomerReportController::class, 'index']);
+
+    Route::post('customer-report', [CustomerReportController::class, 'generateReport']);
 
     Route::post('generate-report', [InvoiceReportController::class, 'generateReport']);
 
