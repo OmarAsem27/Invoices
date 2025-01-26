@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchivedInvoiceController;
 use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceReportController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -34,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('archived-invoices', ArchivedInvoiceController::class);
 
     Route::resource('roles', RoleController::class);
-    
+
     Route::resource('users', UserController::class);
 
     Route::post('change-status/{id}', [InvoiceController::class, 'changeStatus'])->name('change-status');
@@ -60,6 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::post('delete-file', [InvoicesDetailsController::class, 'delete_file'])->name('delete_file');
 
     Route::resource('products', ProductController::class);
+
+    Route::get('inovoice-report', [InvoiceReportController::class, 'index']);
+
+    Route::post('generate-report', [InvoiceReportController::class, 'generateReport']);
 
     Route::get('/{page}', [AdminController::class, 'index']);
 

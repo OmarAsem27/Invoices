@@ -85,11 +85,11 @@ class InvoiceController extends Controller
             $attachments->created_by = Auth::user()->name;
             $attachments->invoice_id = $invoice_id;
             $attachments->save();
-        }
 
-        // move picture
-        $imageName = $request->pic->getClientOriginalName();
-        $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
+            // move picture
+            $imageName = $request->pic->getClientOriginalName();
+            $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
+        }
 
         // event to send mail
         $user = Auth::user();

@@ -50,7 +50,6 @@ class InvoicesDetailsController extends Controller
         $invoice = Invoice::where('id', $id)->first();
         $invoiceDetails = Invoices_details::where('id_Invoice', $id)->get();
         $attachments = Invoice_attachments::where('invoice_id', $id)->get();
-        // dd($attachments);
         return view('invoices.invoice_details', get_defined_vars());
     }
 

@@ -124,6 +124,7 @@
                                         <td @class([
                                             'text-success' => $invoice->value_status == 1,
                                             'text-danger' => $invoice->value_status == 2,
+                                            'text-warning' => $invoice->value_status == 3,
                                         ])>
                                             {{ $invoice->status }}
                                         </td>

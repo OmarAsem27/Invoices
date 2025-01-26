@@ -39,7 +39,7 @@ class InvoiceAttachmentsController extends Controller
         $fileName = $file->getClientOriginalName();
 
         $invoiceAttachment = new Invoice_attachments();
-        $invoiceAttachment->file_name = $request->file_name;
+        $invoiceAttachment->file_name = $fileName;
         $invoiceAttachment->invoice_number = $request->invoice_number;
         $invoiceAttachment->invoice_id = $request->invoice_id;
         $invoiceAttachment->created_by = Auth::user()->name;
