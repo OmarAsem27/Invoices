@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $totalAmount = Invoice::sum('amount_collection');
+        $totalUnpaid = Invoice::where('value_status', 2)->sum('amount_collection');
+        $totalPaid = Invoice::where('value_status', 1)->sum('amount_collection');
+        $totalPartiallyPaid = Invoice::where('value_status', 3)->sum('amount_collection');
         return view('home');
     }
 }
