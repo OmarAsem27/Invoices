@@ -7,6 +7,7 @@ use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceReportController;
 use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
@@ -70,6 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::post('customer-report', [CustomerReportController::class, 'generateReport']);
 
     Route::post('generate-report', [InvoiceReportController::class, 'generateReport']);
+
+    Route::post('read-all-notification', [NotificationController::class, 'readAllNotifications'])->name('read-all-notification');
 
     Route::get('/{page}', [AdminController::class, 'index']);
 

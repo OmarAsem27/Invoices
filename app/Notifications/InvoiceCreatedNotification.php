@@ -27,7 +27,8 @@ class InvoiceCreatedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        // return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -42,6 +43,20 @@ class InvoiceCreatedNotification extends Notification
             ->action('check it now', url("/invoices-details/{$this->invoice->id}"))
             ->line('Thank you for using our application!');
     }
+
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'title' => 'تم اضافة فاتورة جديدة بواسطة',
+            'invoice_id' => $this->invoice->id,
+            'invoice_number' => $this->invoice->invoice_number,
+            'invoice_date' => $this->invoice->invoice_date,
+            'due_date' => $this->invoice->due_date,
+            'product' => $this->invoice->product,
+        ];
+    }
+
 
     /**
      * Get the array representation of the notification.
