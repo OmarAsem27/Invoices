@@ -216,13 +216,14 @@
                                         </form>
                                     </span>
                                 </div>
-                                <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">عدد الاشعارات
+                                <h5 class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12"
+                                    id="notifications_count">عدد الاشعارات
                                     الغير
                                     مقرؤة
                                     {{ auth()->user()->unreadNotifications()->count() }}
-                                </p>
+                                </h5>
                             </div>
-                            <div class="main-notification-list Notification-scroll">
+                            <div class="main-notification-list Notification-scroll" id="unreadNotifications">
 
                                 @foreach (auth()->user()->unreadNotifications as $notification)
                                     <a class="d-flex p-3 border-bottom"

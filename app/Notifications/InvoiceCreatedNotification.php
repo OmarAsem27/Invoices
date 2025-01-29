@@ -56,6 +56,16 @@ class InvoiceCreatedNotification extends Notification
             'due_date' => $this->invoice->due_date,
             'product' => $this->invoice->product,
             'user'=> Auth::user()->name,
+            'section_id' => $this->invoice->section->id,
+            'amount_collection' => $this->invoice->amount_collection,
+            'amount_commission' => $this->invoice->amount_commission,
+            'discount' => $this->invoice->discount,
+            'value_VAT' => $this->invoice->value_VAT,
+            'rate_VAT' => $this->invoice->rate_VAT,
+            'total' => $this->invoice->total,
+            'status' => $this->invoice->status,
+            'note' => $this->invoice->note,
+            'payment_date' => $this->invoice->payment_date,
         ];
     }
 
