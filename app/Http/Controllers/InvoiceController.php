@@ -8,6 +8,7 @@ use App\Models\Invoice_attachments;
 use App\Models\Invoices_details;
 use App\Models\Product;
 use App\Models\Section;
+use App\Models\User;
 use App\Notifications\InvoiceCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class InvoiceController extends Controller
 {
@@ -91,10 +93,10 @@ class InvoiceController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
 
-        // event to send mail
-        $user = Auth::user();
+        // event to send notification to owner users only
+        $ownerUsers = User::where('role_names', '["owner"]')->get();
         $invoice = Invoice::latest()->first();
-        $user->notify(new InvoiceCreatedNotification($invoice));
+        Notification::send($ownerUsers, new InvoiceCreatedNotification($invoice));
         session()->flash('Add', 'تم إضافة الفاتورة بنجاح');
         return redirect('/invoices');
     }

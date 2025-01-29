@@ -87,7 +87,7 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-down text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ (app\Models\Invoice::where('value_status', 2)->count() / app\Models\Invoice::count()) * 100 }}%
+                                    {{ round((app\Models\Invoice::where('value_status', 2)->count() / app\Models\Invoice::count()) * 100) }}%
                                 </span>
                             </span>
                         </div>
@@ -115,7 +115,7 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-up text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ (app\Models\Invoice::where('value_status', 1)->count() / app\Models\Invoice::count()) * 100 }}%
+                                    {{ round((app\Models\Invoice::where('value_status', 1)->count() / app\Models\Invoice::count()) * 100) }}%
                                 </span>
                             </span>
                         </div>
@@ -143,7 +143,7 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-down text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ (app\Models\Invoice::where('value_status', 3)->count() / app\Models\Invoice::count()) * 100 }}%
+                                    {{ round((app\Models\Invoice::where('value_status', 3)->count() / app\Models\Invoice::count()) * 100) }}%
                                 </span>
                             </span>
                         </div>
@@ -168,7 +168,7 @@
                         To begin, enter your order number.</p>
                 </div>
 
-                <div class="card-body" >
+                <div class="card-body">
 
                     <x-chartjs-component :chart="$chart" />
 

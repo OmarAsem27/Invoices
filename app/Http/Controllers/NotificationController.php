@@ -11,9 +11,7 @@ class NotificationController extends Controller
     public function readAllNotifications()
     {
         $user = Auth::user();
-        foreach ($user->unreadNotifications as $notification) {
-            $notification->markAsRead();
-        }
+        $user->unreadNotifications->markAsRead();
         return redirect('home');
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceCreatedNotification extends Notification
 {
@@ -54,6 +55,7 @@ class InvoiceCreatedNotification extends Notification
             'invoice_date' => $this->invoice->invoice_date,
             'due_date' => $this->invoice->due_date,
             'product' => $this->invoice->product,
+            'user'=> Auth::user()->name,
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use IcehouseVentures\LaravelChartjs\Facades\Chartjs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -59,17 +60,17 @@ class HomeController extends Controller
                 [
                     "label" => "الفواتير الغير المدفوعة",
                     'backgroundColor' => ['#ec5858'],
-                    'data' => [$percentageOfInvoices2]
+                    'data' => [round($percentageOfInvoices2)]
                 ],
                 [
                     "label" => "الفواتير المدفوعة",
                     'backgroundColor' => ['#81b214'],
-                    'data' => [$percentageOfInvoices1]
+                    'data' => [round($percentageOfInvoices1)]
                 ],
                 [
                     "label" => "الفواتير المدفوعة جزئيا",
                     'backgroundColor' => ['#ff9642'],
-                    'data' => [$percentageOfInvoices3]
+                    'data' => [round($percentageOfInvoices3)]
                 ],
             ])
             ->options([
