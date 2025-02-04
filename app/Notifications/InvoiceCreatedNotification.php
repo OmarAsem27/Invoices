@@ -3,8 +3,10 @@
 namespace App\Notifications;
 
 use App\Models\Invoice;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +30,8 @@ class InvoiceCreatedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        // return ['mail', 'database'];
-        return ['database'];
+        // return ['mail', 'database','broadcast'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -55,7 +57,7 @@ class InvoiceCreatedNotification extends Notification
             'invoice_date' => $this->invoice->invoice_date,
             'due_date' => $this->invoice->due_date,
             'product' => $this->invoice->product,
-            'user'=> Auth::user()->name,
+            'user' => Auth::user()->name,
             'section_id' => $this->invoice->section->id,
             'amount_collection' => $this->invoice->amount_collection,
             'amount_commission' => $this->invoice->amount_commission,
@@ -70,6 +72,28 @@ class InvoiceCreatedNotification extends Notification
     }
 
 
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => 'تم اضافة فاتورة جديدة بواسطة',
+            'invoice_id' => $this->invoice->id,
+            'invoice_number' => $this->invoice->invoice_number,
+            'invoice_date' => $this->invoice->invoice_date,
+            'due_date' => $this->invoice->due_date,
+            'product' => $this->invoice->product,
+            'user' => Auth::user()->name,
+            'section_id' => $this->invoice->section->id,
+            'amount_collection' => $this->invoice->amount_collection,
+            'amount_commission' => $this->invoice->amount_commission,
+            'discount' => $this->invoice->discount,
+            'value_VAT' => $this->invoice->value_VAT,
+            'rate_VAT' => $this->invoice->rate_VAT,
+            'total' => $this->invoice->total,
+            'status' => $this->invoice->status,
+            'note' => $this->invoice->note,
+            'payment_date' => $this->invoice->payment_date,
+        ]);
+    }
     /**
      * Get the array representation of the notification.
      *
@@ -81,4 +105,11 @@ class InvoiceCreatedNotification extends Notification
             //
         ];
     }
+
+    public function broadcastOn()
+    {
+        // Broadcasting to the shared owner-notifications channel
+        return new PrivateChannel('owner-notifications');
+    }
+
 }

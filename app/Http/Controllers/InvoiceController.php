@@ -94,7 +94,7 @@ class InvoiceController extends Controller
         }
 
         // event to send notification to owner users only
-        $ownerUsers = User::where('role_names', '["owner"]')->get();
+        $ownerUsers = User::where('role_names', 'LIKE', '%' . 'owner' . '%')->get();
         $invoice = Invoice::latest()->first();
         Notification::send($ownerUsers, new InvoiceCreatedNotification($invoice));
         session()->flash('Add', 'تم إضافة الفاتورة بنجاح');

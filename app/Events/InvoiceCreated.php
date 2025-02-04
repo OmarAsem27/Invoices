@@ -3,15 +3,17 @@
 namespace App\Events;
 
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InvoiceCreated
+class InvoiceCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -34,4 +36,14 @@ class InvoiceCreated
             new PrivateChannel('channel-name'),
         ];
     }
+
+
+    // send custom data
+    public function broadcastWith(): array
+    {
+        return [
+            'Greeting' => 'Hello World!'
+        ];
+    }
+
 }
