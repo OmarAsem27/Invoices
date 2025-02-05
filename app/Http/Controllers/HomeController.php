@@ -27,8 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $totalCount = Invoice::count();
-        $countUnpaid = Invoice::where('value_status', 2)->count();
         $countPaid = Invoice::where('value_status', 1)->count();
+        $countUnpaid = Invoice::where('value_status', 2)->count();
         $countPartiallyPaid = Invoice::where('value_status', 3)->count();
 
 
@@ -51,7 +51,7 @@ class HomeController extends Controller
         }
 
 
-        $chart = Chartjs::build()
+        $barChart = Chartjs::build()
             ->name('barChartTest')
             ->type('bar')
             ->size(['width' => 350, 'height' => 150])
@@ -81,6 +81,21 @@ class HomeController extends Controller
                 ]
             ]);
 
-        return view('home', compact('chart'));
+        $pieChart = Chartjs::build()
+            ->name('pieChartTest')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels(['الفواتير الغير المدفوعة', 'الفواتير المدفوعة', 'الفواتير المدفوعة جزئيا'])
+            ->datasets([
+                [
+                    'backgroundColor' => ['#ec5858', '#81b214', '#ff9642'],
+                    'hoverBackgroundColor' => ['#ec5858', '#81b214', '#ff9642'],
+                    'data' => [round($percentageOfInvoices2), round($percentageOfInvoices1), round($percentageOfInvoices3)]
+                ]
+            ])
+            ->options([]);
+
+
+        return view('home', compact('barChart', 'pieChart'));
     }
 }

@@ -15,28 +15,10 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
-                <p class="mg-b-0">Sales monitoring dashboard template.</p>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Collection Performance Dashboard</h2>
             </div>
         </div>
-        <div class="main-dashboard-header-right">
-            <div>
-                <label class="tx-13">Customer Ratings</label>
-                <div class="main-star">
-                    <i class="typcn typcn-star active"></i> <i class="typcn typcn-star active"></i> <i
-                        class="typcn typcn-star active"></i> <i class="typcn typcn-star active"></i> <i
-                        class="typcn typcn-star"></i> <span>(14,873)</span>
-                </div>
-            </div>
-            <div>
-                <label class="tx-13">Online Sales</label>
-                <h5>563,275</h5>
-            </div>
-            <div>
-                <label class="tx-13">Offline Sales</label>
-                <h5>783,675</h5>
-            </div>
-        </div>
+
     </div>
     <!-- /breadcrumb -->
 @endsection
@@ -161,16 +143,18 @@
             <div class="card">
                 <div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mb-0">Order status</h4>
+                        <h4 class="card-title mb-0">Invoice Payment Status
+                        </h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <p class="tx-12 text-muted mb-0">Order Status and Tracking. Track your order from ship date to arrival.
-                        To begin, enter your order number.</p>
+                    <p class="tx-12 text-muted mb-0">Monitor the progress of paid, unpaid, and partially paid invoices from
+                        debt acquisition to collection
+                    </p>
                 </div>
 
                 <div class="card-body">
 
-                    <x-chartjs-component :chart="$chart" />
+                    <x-chartjs-component :chart="$barChart" />
 
                 </div>
             </div>
@@ -182,10 +166,16 @@
 
         <div class="col-lg-12 col-xl-5">
             <div class="card card-dashboard-map-one">
-                <label class="main-content-label">Sales Revenue by Customers in USA</label>
-                <span class="d-block mg-b-20 text-muted tx-12">Sales Performance of all states in the United States</span>
+                <label class="main-content-label">Invoice Payment Distribution
+                </label>
+                <span class="d-block mg-b-20 text-muted tx-12">
+                    Visualize the proportion of paid, unpaid, and partially paid invoices to understand overall collection
+                    performance.
+                </span>
                 <div class="">
-                    <div class="vmap-wrapper ht-180" id="vmap2"></div>
+                    {{-- <div class="vmap-wrapper ht-180" id="vmap2"></div> --}}
+                    <x-chartjs-component :chart="$pieChart" />
+
                 </div>
             </div>
         </div>
